@@ -9,7 +9,7 @@ const seatRepository = new SeatRepository();
 async function getSeats() {
   try {
 
-    
+
     const seats = await Seat.findAll({
         order: [['seat_class', 'ASC']]
     });
@@ -53,6 +53,7 @@ async function getSeat(id) {
     }
 
     return {
+      seatDetails: seat,
       seatPrice: totalPrice,
     };
   } catch (error) {
