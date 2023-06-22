@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 
-const { SeatPricing } = require("../models");
+const { SeatPricing, Seat } = require("../models");
 const { SeatRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
 
@@ -8,7 +8,11 @@ const seatRepository = new SeatRepository();
 
 async function getSeats() {
   try {
-    const seats = await seatRepository.getAll();
+
+    
+    const seats = await Seat.findAll({
+        order: [['seat_class', 'ASC']]
+    });
     return seats;
   } catch (error) {
     console.log(error);
