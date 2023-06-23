@@ -47,9 +47,9 @@ async function getSeat(id) {
     if (percentage < 40) {
       totalPrice = Boolean(minPrice) ? minPrice : normalPrice;
     } else if (percentage <= 60) {
-      totalPrice = normalPrice;
+      totalPrice = Boolean(normalPrice) ? normalPrice : (Boolean(maxPrice) ? maxPrice : minPrice);
     } else if (percentage > 60) {
-      totalPrice = maxPrice === NaN ? normalPrice : maxPrice;
+      totalPrice = Boolean(maxPrice) ? maxPrice : normalPrice;
     }
 
     return {

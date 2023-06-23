@@ -143,12 +143,13 @@ async function createBooking(data) {
 
       const percentage = (bookedSeats / totalSeats) * 100;
       if (percentage < 40) {
-        totalPrice += Boolean(minPrice) ? minPrice : normalPrice;
-      } else if (percentage <= 60) {
-        totalPrice += normalPrice;
-      } else if (percentage > 60) {
-        totalPrice += maxPrice === NaN ? normalPrice : maxPrice;
-      }
+      totalPrice = Boolean(minPrice) ? minPrice : normalPrice;
+    } else if (percentage <= 60) {
+      totalPrice = Boolean(normalPrice) ? normalPrice : (Boolean(maxPrice) ? maxPrice : minPrice);
+    } else if (percentage > 60) {
+      totalPrice = Boolean(maxPrice) ? maxPrice : normalPrice;
+    }
+    
     }
 
     // update status of booking for seats
